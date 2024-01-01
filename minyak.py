@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
 
-model_path = "modelasik4.h5"  # Ganti dengant path model Anda
+model_path = "https://github.com/shelenayn/ASIKIN/blob/master/my_model.h5"  # Ganti dengant path model Anda
 
 # Load the pre-trained model
 @st.cache(allow_output_mutation=True)
