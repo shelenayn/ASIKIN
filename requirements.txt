@@ -1,10 +1,4 @@
-Babel==2.11.0
-pandas==1.5.3
-matplotlib==3.7.1
-matplotlib-inline==0.1.6
-seaborn==0.12.2
 streamlit==1.29.0
-plotly==5.9.0
 tensorboard==2.15.1
 tensorboard-data-server==0.7.2
 tensorflow==2.15.0
