@@ -1,4 +1,5 @@
 streamlit==1.29.0
 tensorflow==2.15.0
+st_gsheets_connection==0.0.3
 numpy==1.24.3
 keras==2.15.0
