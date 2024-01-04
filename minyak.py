@@ -11,8 +11,9 @@ model_url = "https://github.com/shelenayn/ASIKIN/raw/master/my_model.h5"  # Dipe
 # Memuat model yang telah dilatih
 @st.cache(allow_output_mutation=True)
 def load_my_model(model_url):
-    model_file = request.urlopen(model_url)
-    model = tf.keras.models.load_model(model_file)
+    response = requests.get(model_url)
+    response.raise_for_status()
+    model = tf.keras.models.load_model(BytesIO(response.content))
     return model
 
 # Fungsi untuk melakukan prediksi
