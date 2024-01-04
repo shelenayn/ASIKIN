@@ -4,7 +4,6 @@ from tensorflow.keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
 import requests
-from io import BytesIO
 
 model_url = "https://github.com/shelenayn/ASIKIN/raw/master/my_model.h5"  # Diperbarui dengan URL raw yang benar
 
@@ -13,7 +12,15 @@ model_url = "https://github.com/shelenayn/ASIKIN/raw/master/my_model.h5"  # Dipe
 def load_my_model(model_url):
     response = requests.get(model_url)
     response.raise_for_status()
-    model = tf.keras.models.load_model(BytesIO(response.content))
+    
+    # Simpan model ke file sementara
+    model_file_path = "temp_model.h5"
+    with open(model_file_path, "wb") as f:
+        f.write(response.content)
+    
+    # Load model dari file sementara
+    model = tf.keras.models.load_model(model_file_path)
+    
     return model
 
 # Fungsi untuk melakukan prediksi
