@@ -3,13 +3,17 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
+import requests
+from io import BytesIO
 
-model_path = "https://github.com/shelenayn/ASIKIN/blob/master/my_model.h5"  # Ganti dengant path model Anda
+model_url = "https://github.com/shelenayn/ASIKIN/raw/master/my_model.h5"  # Diperbarui dengan URL raw yang benar
 
-# Load the pre-trained model
+# Memuat model yang telah dilatih
 @st.cache(allow_output_mutation=True)
-def load_my_model(model_path):
-    model = load_model(model_path)
+def load_my_model(model_url):
+    response = requests.get(model_url)
+    response.raise_for_status()
+    model = load_model(BytesIO(response.content))
     return model
 
 # Fungsi untuk melakukan prediksi
@@ -31,21 +35,21 @@ def import_and_predict(image_data, loaded_model):
 st.title("Klasifikasi Tumpahan Minyak")
 st.write("Klasifikasi ini menggunakan algoritma CNN untuk mengklasifikasi ada atau tidaknya tumpahan minyak")
 
-# Upload gambar dari user
+# Upload gambar dari pengguna
 file = st.file_uploader("Pilih file", type=["jpg", "png"])
 
-# Jika ada file yang diupload
+# Jika ada file yang diunggah
 if file is not None:
     # Membaca gambar
     image = Image.open(file)
     st.image(image, caption="Gambar yang Diunggah.", use_column_width=True)
 
-    # Load model
-    model = load_my_model(model_path)
+    # Memuat model
+    model = load_my_model(model_url)
 
     # Prediksi kelas gambar
     predictions = import_and_predict(image, model)
-    class_names = ["Tedeteksi ada tumpahan minyak", "Terdeteksi tidak ada tumpahan minyak"] 
+    class_names = ["Tedeteksi ada tumpahan minyak", "Terdeteksi tidak ada tumpahan minyak"]
 
     # Menampilkan hasil prediksi
     st.write("Prediksi:")
