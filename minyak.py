@@ -26,7 +26,7 @@ def load_my_model(model_url):
 # Fungsi untuk melakukan prediksi
 def import_and_predict(image_data, loaded_model):
     size = (150, 150)
-    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    image = ImageOps.fit(image_data, size, method=0, bleed=0.0, centering=(0.5, 0.5))
 
     # Konversi gambar ke format RGB
     image = ImageOps.exif_transpose(image)
